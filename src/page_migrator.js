@@ -98,11 +98,10 @@ export const toStructuredFromV1Pages = (pages, orderedPageContentUuidsBySectionI
   });
   
   if (pages.length === 0) {
-    if (extraData.gridColumnCount) {
-      pages = [DEFAULT_HOME_LEGACY];
-    }
+    // We're in an odd situation here and were gonna need to use defaults
+    pages = [DEFAULT_HOME_LEGACY];
   }
-  
+
   const _menuItems = map(pages, (page)=> toStructuredMenuItem(page));
   const menuItemsById = keyBy(_menuItems, 'id');
 
