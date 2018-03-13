@@ -88,12 +88,6 @@ export const toStructuredFromV1Pages = (pages, orderedPageContentUuidsBySectionI
     // and I belive it is OK if existing pages which 
     // have a text section with nothing written in them start showing up
   });
-
-  if (pages.length === 0) {
-    if (extraData.gridColumnCount) {
-      pages = [DEFAULT_HOME_LEGACY];
-    }
-  }
   
   const _toplevelPages = reject(pages, 'is_sub_section');
   const orderedMenuItemIds = map(_toplevelPages, 'pageId');
@@ -102,6 +96,12 @@ export const toStructuredFromV1Pages = (pages, orderedPageContentUuidsBySectionI
   pages = reject(pages, (page)=> {
     return page.is_sub_section && !includes(orderedMenuItemIds, page.parent_section_id);
   });
+  
+  if (pages.length === 0) {
+    if (extraData.gridColumnCount) {
+      pages = [DEFAULT_HOME_LEGACY];
+    }
+  }
   
   const _menuItems = map(pages, (page)=> toStructuredMenuItem(page));
   const menuItemsById = keyBy(_menuItems, 'id');
