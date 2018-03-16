@@ -2,6 +2,7 @@ import each from 'lodash/each';
 import map from 'lodash/map';
 import filter from 'lodash/filter';
 import union from 'lodash/union';
+import compact from 'lodash/compact';
 
 import { 
   getSectionIdForPageContentItemApiModel 
@@ -59,7 +60,7 @@ const calcContentOwnershipV1 = (pages, nonConfigPageContentItems)=> {
 
     } else if (page.grid_positions) {
       contentUuids = map(
-        filter(page.grid_positions, ({ uuid })=> uuid !== ADD_TILE_UUID), 
+        filter(compact(page.grid_positions), ({ uuid })=> uuid !== ADD_TILE_UUID), 
         ({ uuid })=> parseInt(uuid.slice(UUID_LENGTH))
       );
     }
