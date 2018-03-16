@@ -117,9 +117,8 @@ export const toStructuredFromV1Pages = (pages, orderedPageContentUuidsBySectionI
   // The ordering of "sections" doesn't matter (only the ordering of menu items)
   const _subpages = map(realSubpagePages, page => toStructuredSubpage(page));
   const subpagesById = keyBy(_subpages, 'id');
-  const _homepage = find(pages, isHomeSubpage);
-  debugger;
-  const homeSubpageId = _homepage ? _homepage.pageId : _subpages[0].id; // If homepage is not marked use first page in subpages list
+  const _homepage = find(realSubpagePages, isHomeSubpage);
+  const homeSubpageId = _homepage ? _homepage.pageId : realSubpagePages[0].pageId; // If homepage is not marked use first page in subpages list
 
   const _sections = map(realSubpagePages, (page)=> toStructuredSection(
     page, 
