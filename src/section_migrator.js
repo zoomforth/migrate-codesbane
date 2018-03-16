@@ -10,8 +10,12 @@ const ADD_TILE = 'add-tile';
 const toStructuredGridPositionsFromV1 = (gridPositions)=>
   sortTiles(compact(map(
     gridPositions, 
-    ({ uuid, ...rest })=> {
-      if (uuid === ADD_TILE) {
+    (gpos)=> {
+      if (!gpos) {
+        return null;
+      }
+      const uuid = gpos.uuid;
+      if (!uuid || uuid === ADD_TILE) {
         return null;
       }
       return { uuid: parseInt(uuid.slice(UUID_PREFIX.length)), type:'tile', ...rest };
