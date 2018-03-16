@@ -25,14 +25,6 @@ const DEFAULT_HOME_LEGACY = {
   type: HOME_PAGEID
 };
 
-const DEFAULT_HOME_NEW = {
-  isHome: true,
-  pageId: HOME_PAGEID,
-  title: 'Home'
-};
-
-
-
 export const toStructuredSubpage = (page)=> {
 
   return {
@@ -47,20 +39,9 @@ export const toStructuredSubpage = (page)=> {
 
 
 export const toStructuredFromV1Pages = (pages, orderedPageContentUuidsBySectionId, extraData, defaultColumnCount)=>{
-  var isNewPage = false;
 
   if (!pages) {
-    // @TODO: we should not let newly created blank pages ever hit this migrator
-
-    if (extraData.gridColumnCount) {
-      // Legacy Pages may be missing a pages object, but have an extraData object
-      pages = [DEFAULT_HOME_LEGACY];
-
-    } else {
-      // Newly created Pages will be missing a pages object AND an extraData object
-      pages = [DEFAULT_HOME_NEW];
-      isNewPage = true;
-    }
+    pages = [DEFAULT_HOME_LEGACY];
   }
 
   // if there are pages, then we remove all the pages that have no visible content.
