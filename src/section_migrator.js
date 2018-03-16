@@ -18,7 +18,7 @@ const toStructuredGridPositionsFromV1 = (gridPositions)=>
       if (!uuid || uuid === ADD_TILE) {
         return null;
       }
-      return { uuid: parseInt(uuid.slice(UUID_PREFIX.length)), type:'tile', ...rest };
+      return { ...gpos, uuid: parseInt(uuid.slice(UUID_PREFIX.length)), type:'tile' };
     }
   )));
 
