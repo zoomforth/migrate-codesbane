@@ -118,26 +118,7 @@ export const toStructuredFromV1Pages = (pages, orderedPageContentUuidsBySectionI
   const _subpages = map(realSubpagePages, page => toStructuredSubpage(page));
   const subpagesById = keyBy(_subpages, 'id');
   const _homepage = find(pages, isHomeSubpage);
-  const homeSubpageId = _homepage ? _homepage.pageId : pages[0].pageId; // If homepage is not marked use first page in pages list
-
-  // @TODO: we REALLY don't want to be putting new blank pages through the migrator.
-
-  // New pages do not have any sections in it. Therefore we overwrite the
-  // menu item to section conversion that happens and manually set them to empty
-  if (isNewPage) {
-    return {
-      homeSubpageId,
-      menuItemsById,
-      orderedMenuItemIds,
-      subpagesById: {
-        [HOME_PAGEID]: {
-          ...subpagesById[HOME_PAGEID],
-          orderedSectionIds: []
-        }
-      },
-      sectionsById: {}
-    };
-  }
+  const homeSubpageId = _homepage ? _homepage.pageId : _subpages[0].id; // If homepage is not marked use first page in subpages list
 
   const _sections = map(realSubpagePages, (page)=> toStructuredSection(
     page, 
