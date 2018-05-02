@@ -95,6 +95,11 @@ export const toStructuredFromV1Pages = (pages, orderedPageContentUuidsBySectionI
     )
   );
 
+  if (realSubpagePages.length === 0) {
+    // The weird situation where there is only an external link (or maybe internal link) on the page
+    realSubpagePages.push(DEFAULT_HOME_LEGACY)
+  }
+
   // The ordering of "sections" doesn't matter (only the ordering of menu items)
   const _subpages = map(realSubpagePages, page => toStructuredSubpage(page));
   const subpagesById = keyBy(_subpages, 'id');
